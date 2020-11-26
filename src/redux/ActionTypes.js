@@ -1,0 +1,11 @@
+export const NOTES_LOADING = 'NOTES_LOADING';
+export const ADD_NOTES = 'ADD_NOTES';
+export const NOTES_FAILED = 'NOTES_FAILED';
+export const ADD_NOTE = 'ADD_NOTE';
+export const EDIT_NOTE = 'EDIT_NOTE';
+export const EDIT_FAILED = 'EDIT_FAILED';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';

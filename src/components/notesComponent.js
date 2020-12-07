@@ -11,8 +11,8 @@ function RenderNotes({ note }) {
             <Link to={`/note/${note._id}`}>
             <CardBody>
                     <CardTitle><h2>{note.name}</h2></CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>
-                    <CardText>Some quick example text.</CardText>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">Description</CardSubtitle>
+                    <CardText>{note.description}</CardText>
                 </CardBody>
             </Link>
         </Card>

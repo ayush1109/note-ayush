@@ -12,7 +12,7 @@ function RenderNoteDetails({ note }) {
                 <Card className="text-center" style={{ backgroundColor: '#ADD8E6', borderColor: '#FFA500' }}>
                     <CardBody>
                         <CardTitle><h2>{note.name}</h2></CardTitle>
-                        <CardText>here will be the note description to be added in future.</CardText>
+                        <CardText>{note.description}</CardText>
                     </CardBody>
 
                 </Card>

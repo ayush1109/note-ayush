@@ -3,12 +3,13 @@ import Footer from './footerComponent';
 import Header from './headerComponent';
 import { withRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchNotes, postNote, deleteNote, putNote, loginUser, logoutUser } from '../redux/ActionCreators';
+import { fetchNotes, postNote, deleteNote, putNote, loginUser, logoutUser, signupUser } from '../redux/ActionCreators';
 import Notes from './notesComponent';
 import NoteDetail from './NoteDetailComponent';
 import PostNote from './postNoteComponent';
 import EditNote from './EditNoteComponent';
 import Login from './LoginComponent';
+import Signup from './SignupComponent';
 const mapStateToProps = state => {
     return {
       notes: state.notes,
@@ -18,7 +19,8 @@ const mapStateToProps = state => {
 
 
 const mapDispatchtoProps = dispatch => ({
-    postNote: (note) => { dispatch(postNote(note)) },
+    postNote: (note, description) => { dispatch(postNote(note, description)) },
+    signupUser: (creds) => dispatch(signupUser(creds)),
     deleteNote: (noteId) => { dispatch(deleteNote(noteId))},
     putNote: (note, noteId) => { dispatch(putNote(note, noteId))},
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -53,7 +55,7 @@ class Main extends Component {
             ?
             <Notes notes={this.props.notes}></Notes>
             :
-            <div>Login to see your notes</div>
+            <div className="container">Login to see your notes</div>
           );
         }
 
@@ -66,6 +68,7 @@ class Main extends Component {
                 <Route path="/postNotes" component={() => <PostNote postNote={this.props.postNote} />}></Route>
                 <Route path="/editNotes" component={() => <EditNote putNote={this.props.putNote} />}></Route>
                 <Route path="/login" component={() => <Login loginUser={this.props.loginUser}></Login>}></Route>
+                <Route path="/signup" component={() => <Signup signupUser={this.props.signupUser}></Signup>}></Route>
                 <Redirect to="/notes"></Redirect>
                 </Switch>
                 <Footer/>

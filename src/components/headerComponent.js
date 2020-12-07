@@ -8,13 +8,21 @@ class Header extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.myFunction = this.myFunction.bind(this);
     }
 
     handleSubmit(values) {
         this.props.postNote(values.note);
     }
+
+    myFunction() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      }
     handleLogout() {
         this.props.logoutUser();
+        this.myFunction();
     }
 
     render() {
@@ -39,6 +47,9 @@ class Header extends Component {
                                 <span className="fa fa-login fa-lg"></span><Link to="/login"><Button>Login</Button></Link>
                             </NavItem>
                             <NavItem className="list-unstyled">
+                                <span className="fa fa-signup fa-lg"></span><Link to="/signup"><Button>Signup</Button></Link>
+                            </NavItem>
+                            <NavItem className="list-unstyled">
                                 <span className="fa fa-logout fa-lg"></span><Button onClick={this.handleLogout}>Logout</Button>
                             </NavItem>
                         </Nav>
@@ -60,6 +71,9 @@ class Header extends Component {
                     <span className="fa fa-pencil fa-sm"></span>Add Note
                     </Link>
                 </Button>
+                </div>
+                <div className="container">
+                <div id="snackbar">Logout Successfully...</div>
                 </div>
             </>
         );

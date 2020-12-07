@@ -10,8 +10,7 @@ class PostNote extends Component {
     }
 
     handleSubmit(event) {
-        this.props.postNote(this.note.value);
-        console.log(this.note.value)
+        this.props.postNote(this.note.value, this.description.value);
         event.preventDefault();
         this.props.history.push('/notes');
         setInterval(() => {
@@ -28,6 +27,11 @@ class PostNote extends Component {
                         <Label htmlFor="note">Note</Label>
                         <Input type="text" id="note" name="note"
                             innerRef={(input) => this.note = input} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="description">Description</Label>
+                        <Input type="text" id="description" name="description"
+                            innerRef={(input) => this.description = input} />
                     </FormGroup>
                     <Button type="submit" value="submit" color="primary">Add</Button>
                     </Form>

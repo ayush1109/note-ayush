@@ -1,7 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
-
 export const fetchNotes = () => (dispatch) => {
     dispatch(notesLoading(true));
 
@@ -51,10 +50,11 @@ export const addNote = (note) => ({
 })
 
 
-export const postNote = (note) => (dispatch) => {
+export const postNote = (note, des) => (dispatch) => {
 
     const  newNote = {
-        name: note
+        name: note,
+        description: des
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -65,7 +65,7 @@ export const postNote = (note) => (dispatch) => {
             'Content-Type': 'application/json',
             'Authorization': bearer
         },
-        credentials: "same-origin"
+        credentials: 'same-origin'
     })
     .then(response => {
         if (response.ok) {
@@ -170,6 +170,13 @@ export const requestLogin = (creds) => {
         creds
     }
 }
+
+export const requestSignup = (creds) => {
+    return {
+        type: ActionTypes.SIGNUP_REQUEST,
+        creds
+    }
+}
   
 export const receiveLogin = (response) => {
     return {
@@ -177,13 +184,64 @@ export const receiveLogin = (response) => {
         token: response.token
     }
 }
-  
+ 
+export const receiveSignup = () => {
+    return {
+        type: ActionTypes.SIGNUP_SUCCESS,
+    }
+}
+
 export const loginError = (message) => {
     return {
         type: ActionTypes.LOGIN_FAILURE,
         payload: message
     }
 }
+
+export const SignupError = (message) => {
+    return {
+        type: ActionTypes.SIGNUP_FAILURE,
+        payload: message
+    }
+}
+export const signupUser = (creds) => (dispatch) => {
+    dispatch(requestSignup(creds))
+
+    return fetch(baseUrl + 'users/signup', {
+        method : 'POST',
+        headers: {
+            'Content-Type':'application/json' 
+        },
+        body: JSON.stringify(creds)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            throw error;
+        })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            // Dispatch the success action
+            dispatch(receiveSignup());
+        }
+        else {
+            var error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(SignupError(error.message)))
+};
+
+
 
 export const loginUser = (creds) => (dispatch) => {
     console.log(JSON.stringify(creds))
